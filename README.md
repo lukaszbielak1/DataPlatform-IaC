@@ -9,7 +9,7 @@ This is the Azure Data Platform Infrastructure proposition.
 4. Run terraform plan command
 5. Apply the changes
 
-**backend.conf** - contains the backend storage account config
-**dev.tfvars** - contains all values for the dev environment
-**main.tf** - the main file with all resources
+**backend.conf** - contains the backend storage account config\
+**dev.tfvars** - contains all values for the dev environment\
+**main.tf** - the main file with all resources\
 **variables.tf**- all variables definition
