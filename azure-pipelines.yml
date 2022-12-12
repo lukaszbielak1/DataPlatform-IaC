@@ -7,20 +7,36 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: "ubuntu-latest"
+
+variables:
+- group: kv
 
 steps:
+- task: replacetokens@5
+  displayName: 'Replace tokens'
+  inputs:
+    targetFiles: |
+      **/*.conf
+      **/*.tfvars
 - task: TerraformInstaller@0
   inputs:
     terraformVersion: 'latest'
 - task: TerraformCLI@0
-  displayName: "Terrafrom Init"
+  displayName: 'terraform init'
   inputs:
-    command: 'init'
+    command: init
+    commandOptions: '-backend-config="backend.conf"'
 - task: TerraformCLI@0
   displayName: 'terraform plan'
   inputs:
-    command: 'plan'
-    allowTelemetryCollection: false
-    environmentServiceName: 'Azure Subscription 1'
-    commandOptions: '-var secret=$(mySecretPipelineVar)'
+    command: plan
+    provider: azurerm
+    environmentServiceName: 'Service Connection Name'
+    commandOptions: '-var-file="dev.tfvars"'
+- task: TerraformCLI@0
+  displayName: 'terraform apply'
+  inputs:
+    command: apply
+    environmentServiceName: 'Service Connection Name'
+    commandOptions: '-var-file="dev.tfvars"'

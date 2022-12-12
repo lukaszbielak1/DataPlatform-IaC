@@ -28,5 +28,5 @@ variable "sql_admin_login" {
 }
 variable "sql_admin_password" {
   type    = string
-  default = "__sql_admin_login__"
+  default = "__sql_admin_password__"
 }

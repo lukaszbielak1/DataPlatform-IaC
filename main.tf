@@ -5,10 +5,12 @@ terraform {
       version = ">= 3.32.0"
     }
   }
+  backend "azurerm" {}
   required_version = ">= 1.2.8"
 }
 provider "azurerm" {
   features {}
+  skip_provider_registration = "true"
 }
 data "azurerm_client_config" "current" {}
 resource "azurerm_resource_group" "data_platform" {
